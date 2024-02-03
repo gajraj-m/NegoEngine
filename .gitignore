@@ -1,4 +1,6 @@
-/client/node_modules
-# /client/.env
+/buyer/node_modules
+/seller/node_modules
+# /buyer/.env
 /server/node_modules
+# /seller/.env
 # /server/.env
