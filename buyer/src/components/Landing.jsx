@@ -86,11 +86,11 @@ const Landing = () => {
               }}
               to={`/${item.id}-${item.name}`}
               key={item.id}
-              className="hover:scale-105 duration-200 md:w-1/4 mt-4 mr-8"
+              className="hover:scale-105 duration-200 md:w-1/5 mt-4 mr-8"
             >
               <div
-                // data-aos="fade-up"
-                // data-aos-delay={item.id * 200}
+                data-aos="fade-up"
+                data-aos-delay={item.id * 200}
                 className=" p-4 rounded-lg shadow-md shadow-gray-300 flex-col space-y-3"
               >
                 <p className="font-medium text-md">{item.name}</p>
