@@ -58,6 +58,10 @@ export default {
       backgroundImage: {
         customGradient:
           "linear-gradient(to right, #1e5492 20%, var(--gradient-color-3) 40%, var(--gradient-color-2) 60%, #3572b7 80%)",
+        buttonGradient:
+          "linear-gradient(to right, #1c75bc 20%, #4aa1e0 40%, #1c75bc 80%)",
+
+        // aise: ["90deg", "#1c75bc", "#4aa1e0 51%", "#1c75bc"],
       },
       borderRadius: {
         lg: `var(--radius)`,
