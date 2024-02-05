@@ -1,5 +1,8 @@
 import React from "react";
-import { CircularProgressbar } from "react-circular-progressbar";
+import {
+  CircularProgressbar,
+  CircularProgressbarWithChildren,
+} from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import SimilarityProvider from "./SimilarityProvider";
 
@@ -18,7 +21,7 @@ const SimilarityProgress = (props) => {
   return (
     <SimilarityProvider valueStart={0} valueEnd={score}>
       {(value) => (
-        <CircularProgressbar
+        <CircularProgressbarWithChildren
           value={value}
           text={`${value} %`}
           circleRatio={0.7} /* Make the circle only 0.7 of the full diameter */
@@ -32,7 +35,7 @@ const SimilarityProgress = (props) => {
               strokeLinecap: "butt",
               transform: "rotate(-126deg)",
               transformOrigin: "center center",
-                stroke: calcColor(value, 0, 120),
+              stroke: calcColor(value, 0, 120),
             },
             // pathColor: `rgba(62, 152, 199, ${value / 100})`,
             text: {
@@ -40,7 +43,14 @@ const SimilarityProgress = (props) => {
             },
           }}
           strokeWidth={5}
-        />
+        >
+          <img
+            style={{ width: 70, marginTop: -100 }}
+            // src="https://i.imgur.com/b9NyUGm.png"
+            src="https://images.saymedia-content.com/.image/t_share/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
+            alt="doge"
+          />
+        </CircularProgressbarWithChildren>
       )}
     </SimilarityProvider>
   );
