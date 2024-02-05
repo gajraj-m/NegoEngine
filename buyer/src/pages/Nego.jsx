@@ -22,14 +22,14 @@ const Nego = () => {
   const { currentSeller } = useSelector((state) => state.app);
   const [sliderValue, setSliderValue] = useState(33);
   const milestones = [75, 80, 90, 95, 99];
-  let index = 0;
+  const index = useRef(0);
   let dialogRef = useRef(null);
 
   useEffect(() => {
-    if (sliderValue > milestones[index]) {
-      console.log("hehe");
+    if (sliderValue > milestones[index.current]) {
+      console.log(sliderValue + " " + index.current);
       dialogRef.current?.click();
-      if (index < milestones.length - 1) index++;
+      if (index.current < milestones.length - 1) index.current++;
     }
   }, [sliderValue]);
 
@@ -42,7 +42,17 @@ const Nego = () => {
           <div className="text-center mb-4 text-3xl font-bold bg-customGradient text-transparent bg-clip-text">
             <h1>Negotiable TnC</h1>
           </div>
-          <div className="w-3/4 h-3/4 mx-auto rounded-lg shadow-lg shado-gray-300 "></div>
+          <div className="w-3/4 h-3/4 p-4 mx-auto rounded-lg shadow-lg shado-gray-300 text-sm font-medium">
+            <p>Who collects payment</p>
+            <p>Withholding Amount</p>
+            <p>Settlement Window</p>
+            <p>Settlement Basis</p>
+            <p>Declared Price</p>
+            <p>Commission</p>
+            <p>Return window</p>
+            <p>Cancel Window</p>
+            <p>Settlement Window</p>
+          </div>
           {/* button */}
           <div className="w-fit mx-auto mt-4">
             <button className="bg-buttonGradient font-medium text-white px-8 py-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
@@ -69,8 +79,8 @@ const Nego = () => {
               <DialogHeader>
                 <DialogTitle>Finalize The Deal?</DialogTitle>
                 <DialogDescription className="">
-                  We have reached a consensus on 85% of the Terms and
-                  Conditions. Are you ready to proceed and finalize the deal?
+                  {`We have reached a consensus on ${sliderValue} of the Terms and
+                  Conditions. Are you ready to proceed and finalize the deal?`}
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
