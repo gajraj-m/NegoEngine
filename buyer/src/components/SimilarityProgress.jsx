@@ -5,6 +5,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import SimilarityProvider from "./SimilarityProvider";
+import Cat from "../assets/cat.png";
 
 const SimilarityProgress = (props) => {
   const { score } = props;
@@ -45,9 +46,9 @@ const SimilarityProgress = (props) => {
           strokeWidth={5}
         >
           <img
-            style={{ width: 70, marginTop: -100 }}
-            // src="https://i.imgur.com/b9NyUGm.png"
-            src="https://images.saymedia-content.com/.image/t_share/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
+            style={{ width: 100, marginTop: -120 }}
+            src={Cat}
+            // src="https://images.saymedia-content.com/.image/t_share/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
             alt="doge"
           />
         </CircularProgressbarWithChildren>

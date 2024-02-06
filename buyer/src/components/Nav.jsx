@@ -126,7 +126,7 @@ const Nav = () => {
           <a href="/" className="flex space-x-3">
             <GiBuyCard size={34} className="fill-primary" />
             <h1 className="text-3xl font-bold bg-customGradient text-transparent bg-clip-text">
-              Nego Engine
+              N*** Engine
             </h1>
           </a>
           <div className="md:hidden">
