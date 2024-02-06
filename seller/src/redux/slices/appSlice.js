@@ -1,23 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentPage: 0,
-  sideBarExpand: true,
+  currentBuyer: {},
 };
 
 const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setAppPage: (state, action) => {
-      state.currentPage = action.payload;
-    },
-    setSideBarExpand: (state, action) => {
-      state.sideBarExpand = action.payload;
+    setCurrentBuyer: (state, action) => {
+      state.currentBuyer = action.payload;
     },
   },
 });
 
-export const { setAppPage, setSideBarExpand } = appSlice.actions;
+export const { setCurrentBuyer } = appSlice.actions;
 
 export default appSlice.reducer;

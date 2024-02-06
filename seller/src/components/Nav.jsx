@@ -18,7 +18,7 @@ import { IoExitOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { FaUniversity } from "react-icons/fa";
+import { GiBuyCard } from "react-icons/gi";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -124,8 +124,10 @@ const Nav = () => {
       <div className="items-center max-w-screen-xl mx-auto md:flex">
         <div className="flex items-center justify-between py-3  md:block">
           <a href="/" className="flex space-x-3">
-            <FaUniversity size={34} />
-            <h1 className="text-3xl font-bold">N*** Engine</h1>
+            <GiBuyCard size={34} className="fill-primary" />
+            <h1 className="text-3xl font-bold bg-customGradient text-transparent bg-clip-text">
+              N*** Engine
+            </h1>
           </a>
           <div className="md:hidden">
             <button

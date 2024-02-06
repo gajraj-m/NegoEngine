@@ -4,6 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-color-4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: --gradient-color-1;
+}
+
 html,
 body {
   @apply font-Poppins text-gray-600;
@@ -41,6 +58,11 @@ body {
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    --gradient-color-1: #19486d;
+    --gradient-color-2: #00b7ea;
+    --gradient-color-3: #03233d;
+    --gradient-color-4: #104671;
   }
 
   .dark {
