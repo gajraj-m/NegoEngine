@@ -94,7 +94,7 @@ const Nego = () => {
               <div className="" data-aos="fade-right">
                 <l-bouncy size="150" speed="1.75" color="#00b7ea"></l-bouncy>
                 <p className="text-gray-500 mt-4">
-                  Awaiting Seller&apos;s response
+                  Awaiting Buyer&apos;s response
                 </p>
               </div>
             ) : (
