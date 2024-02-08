@@ -23,7 +23,7 @@ const NegoForm = ({
 }) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full px-4">
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Who collects payment</p>
@@ -39,9 +39,9 @@ const NegoForm = ({
           </TooltipProvider>
         </div>
         <Select
-          defaultValue={formData["payment-collector"]}
+          defaultValue={formData["payment_collector"]}
           onValueChange={(selectedValue) =>
-            handleSelectChange("payment-collector", selectedValue)
+            handleSelectChange("payment_collector", selectedValue)
           }
         >
           <SelectTrigger className="w-1/3 h-[20px] text-xs text-gray-500">
@@ -54,7 +54,7 @@ const NegoForm = ({
         </Select>
       </div>
 
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Declared Price</p>
@@ -73,14 +73,14 @@ const NegoForm = ({
         </div>
         <Input
           type="Number"
-          id="declared-price"
+          id="declared_price"
           placeholder="Price"
           className="w-1/3 h-[20px] text-xs"
           onChange={handleChange}
-          value={formData["declared-price"]}
+          value={formData["declared_price"]}
         />
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Withholding Amount (% of DP)</p>
@@ -102,16 +102,16 @@ const NegoForm = ({
         <div className="w-1/3 flex flex-row items-center">
           <Input
             type="Number"
-            id="withholding-amount"
+            id="withholding_amount"
             placeholder="Enter"
             className="h-[20px] text-xs mr-2"
             onChange={handleChange}
-            value={formData["withholding-amount"]}
+            value={formData["withholding_amount"]}
           />
           <span>%</span>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Settlement Window (in days)</p>
@@ -131,14 +131,14 @@ const NegoForm = ({
         </div>
         <Input
           type="Number"
-          id="settlement-window"
+          id="settlement_window"
           placeholder="Enter"
           className="w-1/3 h-[20px] text-xs"
           onChange={handleChange}
-          value={formData["settlement-window"]}
+          value={formData["settlement_window"]}
         />
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Settlement Basis</p>
@@ -158,9 +158,9 @@ const NegoForm = ({
           </TooltipProvider>
         </div>
         <Select
-          defaultValue={formData["settlement-basis"]}
+          defaultValue={formData["settlement_basis"]}
           onValueChange={(selectedValue) =>
-            handleSelectChange("settlement-basis", selectedValue)
+            handleSelectChange("settlement_basis", selectedValue)
           }
         >
           <SelectTrigger className="w-1/3 h-[20px] text-xs text-gray-500">
@@ -173,7 +173,7 @@ const NegoForm = ({
           </SelectContent>
         </Select>
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Commission (% of DP)</p>
@@ -200,7 +200,7 @@ const NegoForm = ({
           <span>%</span>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Return window (in days)</p>
@@ -221,14 +221,14 @@ const NegoForm = ({
         </div>
         <Input
           type="Number"
-          id="return-window"
+          id="return_window"
           placeholder="Enter"
           className="w-1/3 h-[20px] text-xs"
           onChange={handleChange}
-          value={formData["return-window"]}
+          value={formData["return_window"]}
         />
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] border-gray-300 px-2 py-1 rounded-lg mt-2">
+      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Cancel Window</p>
@@ -248,11 +248,11 @@ const NegoForm = ({
         </div>
         <Input
           type="Number"
-          id="cancel-window"
+          id="cancel_window"
           placeholder="Enter"
           className="w-1/3 h-[20px] text-xs"
           onChange={handleChange}
-          value={formData["cancel-window"]}
+          value={formData["cancel_window"]}
         />
       </div>
     </form>

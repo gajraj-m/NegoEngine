@@ -24,14 +24,14 @@ bouncy.register();
 
 const Nego = () => {
   const initialValues = {
-    "payment-collector": "buyer",
-    "declared-price": 100, // Example value
-    "withholding-amount": 5, // Example value
-    "settlement-window": 7, // Example value
-    "settlement-basis": "dispatch",
+    payment_collector: "buyer",
+    declared_price: 100, // Example value
+    withholding_amount: 5, // Example value
+    settlement_window: 7, // Example value
+    settlement_basis: "dispatch",
     commission: 2, // Example value
-    "return-window": 14, // Example value
-    "cancel-window": 3, // Example value
+    return_window: 14, // Example value
+    cancel_window: 3, // Example value
   };
 
   const { currentSeller } = useSelector((state) => state.app);
@@ -94,7 +94,7 @@ const Nego = () => {
               <div className="" data-aos="fade-right">
                 <l-bouncy size="150" speed="1.75" color="#00b7ea"></l-bouncy>
                 <p className="text-gray-500 mt-4">
-                  Awaiting Buyer&apos;s response
+                  Awaiting Seller&apos;s response
                 </p>
               </div>
             ) : (

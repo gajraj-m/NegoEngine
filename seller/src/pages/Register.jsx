@@ -61,6 +61,21 @@ export default function Register() {
           className="bg-slate-100 p-3 rounded-lg"
           onChange={handleChange}
         />
+        <input
+          type="Number"
+          placeholder="Rating"
+          id="rating"
+          step={0.1}
+          className="bg-slate-100 p-3 rounded-lg"
+          onChange={handleChange}
+        />
+        <input
+          type="Number"
+          placeholder="Number of Sales"
+          id="numberOfSales"
+          className="bg-slate-100 p-3 rounded-lg"
+          onChange={handleChange}
+        />
         <button
           disabled={loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"

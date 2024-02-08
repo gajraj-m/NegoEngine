@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const sellerSchema = new mongoose.Schema(
   {
     fullname: {
       type: String,
@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    numberOfSales: {
+      type: String,
+      required: true,
+    },
     profilePicture: {
       type: String,
       default:
@@ -24,6 +32,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const seller = mongoose.model("seller", sellerSchema);
 
-module.exports = User;
+module.exports = seller;
