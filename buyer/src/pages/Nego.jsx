@@ -19,22 +19,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { bouncy } from "ldrs";
 import NegoForm from "../components/NegoForm";
+import { axiosInstance } from "../config/axios";
+import { CONST } from "../config";
 
 bouncy.register();
 
 const Nego = () => {
   const initialValues = {
-    "payment-collector": "buyer",
-    "declared-price": 100, // Example value
-    "withholding-amount": 5, // Example value
-    "settlement-window": 7, // Example value
-    "settlement-basis": "dispatch",
+    payment_collector: "buyer",
+    declared_price: 100, // Example value
+    withholding_amount: 5, // Example value
+    settlement_window: 7, // Example value
+    settlement_basis: "dispatch",
     commission: 2, // Example value
-    "return-window": 14, // Example value
-    "cancel-window": 3, // Example value
+    return_window: 14, // Example value
+    cancel_window: 3, // Example value
   };
 
   const { currentSeller } = useSelector((state) => state.app);
+  const { currentUser } = useSelector((state) => state.user);
   const [sliderValue, setSliderValue] = useState(33);
   const milestones = [75, 80, 90, 95, 99];
   const index = useRef(0);
@@ -62,13 +65,34 @@ const Nego = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
       handleClick();
+      const nego = await axiosInstance.post(
+        CONST.uri.resources.POST_NEGO +
+          `/${currentUser._id}_${currentSeller._id}`,
+        formData
+      );
       //  navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const fetchNegos = async () => {
+      try {
+        const negos = await axiosInstance.get(
+          CONST.uri.resources.GET_NEGO +
+            `/${currentUser._id}_${currentSeller._id}`
+        );
+        const len = negos.data.negos.length;
+        if (len >= 1) setFormData(negos.data.negos[len - 1]);
+        console.log(negos.data.negos[len - 1]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchNegos();
+  }, []);
 
   useEffect(() => {
     if (sliderValue > milestones[index.current]) {

@@ -28,6 +28,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "./StarRating";
 import { setCurrentBuyer } from "../redux/slices/appSlice";
+import { axiosInstance } from "../config/axios";
+import { CONST } from "../config";
 
 const Landing = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -70,7 +72,12 @@ const Landing = () => {
 
   useEffect(() => {
     const fetchBuyerApps = async () => {
-      setBaps(buyerApps);
+      try {
+        const sellers = await axiosInstance.get(CONST.uri.resources.GET_BUYERS);
+        setBaps(sellers.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchBuyerApps();
   }, []);
@@ -81,22 +88,22 @@ const Landing = () => {
         These Buyer Apps want to do business with you
       </h1>
       <div className="mt-8 flex flex-col md:flex-row md:flex-wrap w-fit mx-auto">
-        {baps.map((item) => {
+        {baps.map((item, idx) => {
           return (
             <Link
               onClick={() => {
                 dispatch(setCurrentBuyer(item));
               }}
-              to={`/${item.id}-${item.name}`}
-              key={item.id}
-              className="hover:scale-105 duration-200 md:w-1/5 mt-4 mr-8"
+              to={`/${item._id}-${item.fullname}`}
+              key={idx}
+              className="hover:scale-105 duration-200 md:w-1/4 mt-4 mr-8"
             >
               <div
                 data-aos="fade-up"
-                data-aos-delay={item.id * 200}
+                data-aos-delay={idx * 200}
                 className=" p-4 rounded-lg shadow-md shadow-gray-300 flex-col space-y-3"
               >
-                <p className="font-medium text-md">{item.name}</p>
+                <p className="font-medium text-md">{item.fullname}</p>
                 <div className="flex flex-row space-x-3 items-center">
                   <StarRating rating={item.rating} />
                   <p className="text-xs">{item.rating}</p>
