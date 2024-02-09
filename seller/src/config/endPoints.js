@@ -11,6 +11,8 @@ export const uri = {
   resources: {
     USERS: "/users/",
     GET_BUYERS: "/user/getBuyers",
+    GET_NEGO: "/nego/getNego",
+    POST_NEGO: "/nego/postNego",
   },
   services: {
     OAUTH2_GOOGLE_STATUS: "/login/google/status",

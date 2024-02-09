@@ -18,7 +18,11 @@ const addUser = (userId, socketId) => {
 };
 
 const initializeSocketServer = (server) => {
-  io = require("socket.io")(server);
+  io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+    },
+  });
 
   io.on("connection", (socket) => {
     console.log("a user connected");
@@ -29,6 +33,15 @@ const initializeSocketServer = (server) => {
       addUser(userId, socket.id);
       // console.log(users);
       // io.emit("getUsers", users); // no need to send users to each user
+    });
+
+    // nego
+    socket.on("sendNego", ({ sender_id, receiver_id, nego }) => {
+      const user = getUser(receiver_id);
+      io.to(user?.socketId).emit("getNego", {
+        sender_id,
+        nego,
+      });
     });
 
     // chatting

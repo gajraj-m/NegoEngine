@@ -19,28 +19,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { bouncy } from "ldrs";
 import NegoForm from "../components/NegoForm";
+import { axiosInstance } from "../config/axios";
+import { CONST } from "../config";
+import { io } from "socket.io-client";
+import { SOCKET_URL } from "../api/socket";
 
 bouncy.register();
 
 const Nego = () => {
-  const initialValues = {
-    payment_collector: "buyer",
-    declared_price: 100, // Example value
-    withholding_amount: 5, // Example value
-    settlement_window: 7, // Example value
-    settlement_basis: "dispatch",
-    commission: 2, // Example value
-    return_window: 14, // Example value
-    cancel_window: 3, // Example value
-  };
-
-  const { currentSeller } = useSelector((state) => state.app);
+  const { currentBuyer } = useSelector((state) => state.app);
+  const { currentUser } = useSelector((state) => state.user);
   const [sliderValue, setSliderValue] = useState(33);
   const milestones = [75, 80, 90, 95, 99];
   const index = useRef(0);
   let dialogRef = useRef(null);
-  const [formData, setFormData] = useState(initialValues);
+  const [formData, setFormData] = useState({});
   const [waiting, setWaiting] = useState(false);
+  const [socket, setSocket] = useState(io(SOCKET_URL));
 
   const handleClick = () => {
     setWaiting(true);
@@ -62,13 +57,64 @@ const Nego = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
-      handleClick();
+      // handleClick();
+      setWaiting(true);
+      // socket
+      // send to socket first
+      socket?.emit("sendNego", {
+        sender_id: currentUser._id,
+        receiver_id: currentBuyer._id,
+        nego: {
+          ...formData,
+          sender_id: currentUser._id,
+          receiver_id: currentBuyer._id,
+        },
+      });
+
+      const nego = await axiosInstance.post(
+        CONST.uri.resources.POST_NEGO +
+          `/${currentBuyer._id}_${currentUser._id}`,
+        {
+          ...formData,
+          sender_id: currentUser._id,
+          receiver_id: currentBuyer._id,
+        }
+      );
       //  navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const fetchNegos = async () => {
+      try {
+        const negos = await axiosInstance.get(
+          CONST.uri.resources.GET_NEGO +
+            `/${currentBuyer._id}_${currentUser._id}`
+        );
+        const len = negos.data.negos.length;
+        if (len >= 1) setFormData(negos.data.negos[len - 1]);
+        // console.log(negos.data.negos[len - 1]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchNegos();
+    setSocket(io(SOCKET_URL));
+  }, []);
+
+  useEffect(() => {
+    // add user
+    socket?.emit("addUser", currentUser._id);
+
+    // get msg
+    socket?.on("getNego", (data) => {
+      setWaiting(false);
+      console.log("from scoket : ", data.nego);
+      setFormData(data.nego);
+    });
+  }, [socket]);
 
   useEffect(() => {
     if (sliderValue > milestones[index.current]) {
@@ -94,7 +140,7 @@ const Nego = () => {
               <div className="" data-aos="fade-right">
                 <l-bouncy size="150" speed="1.75" color="#00b7ea"></l-bouncy>
                 <p className="text-gray-500 mt-4">
-                  Awaiting Seller&apos;s response
+                  Awaiting Buyer&apos;s response
                 </p>
               </div>
             ) : (

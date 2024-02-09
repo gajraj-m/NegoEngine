@@ -17,11 +17,17 @@ const negoSchema = new mongoose.Schema(
     },
     negos: [
       {
+        sender_id: {
+          type: String,
+          required: true,
+        },
+        receiver_id: {
+          type: String,
+          required: true,
+        },
         payment_collector: {
           type: String,
           required: true,
-          trim: true,
-          lowercase: true,
         },
         declared_price: {
           type: Number,
@@ -38,8 +44,6 @@ const negoSchema = new mongoose.Schema(
         settlement_basis: {
           type: String,
           required: true,
-          trim: true,
-          //apply a validator logic
         },
         commission: {
           type: Number,
