@@ -37,6 +37,9 @@ const Nego = () => {
   const [previousFormData, setPreviousFormData] = useState({});
   const [waiting, setWaiting] = useState(false);
   const [socket, setSocket] = useState(io(SOCKET_URL));
+  const [lastPrice,setLastPrice] = useState(0);
+  const [secondLastPrice,setSecondLastPrice] = useState(0);  
+  const [currSimilarity, setCurrSimilarity] = useState(0)
 
   const handleClick = () => {
     setWaiting(true);
@@ -59,7 +62,6 @@ const Nego = () => {
     e.preventDefault();
     try {
       // handleClick();
-
       setWaiting(true);
       // socket
       // send to socket first
@@ -73,7 +75,7 @@ const Nego = () => {
         },
       });
 
-      const nego = await axiosInstance.post(
+      const res = await axiosInstance.post(
         CONST.uri.resources.POST_NEGO +
           `/${currentUser._id}_${currentSeller._id}`,
         {
@@ -82,6 +84,8 @@ const Nego = () => {
           receiver_id: currentSeller._id,
         }
       );
+      setCurrSimilarity(res.data);
+      console.log("Similarity got" + res.data);
       //  navigate("/dashboard");
     } catch (error) {
       console.log(error);
@@ -98,6 +102,7 @@ const Nego = () => {
         const len = negos.data.negos.length;
         if (len >= 1) setFormData(negos.data.negos[len - 1]);
         // console.log(negos.data.negos[len - 1]);
+        setCurrSimilarity(negos.data.curr_similarity);
       } catch (err) {
         console.log(err);
       }
@@ -178,13 +183,13 @@ const Nego = () => {
         <ResizableHandle />
         <ResizablePanel>
           <div className="w-64 h-64 mx-auto mt-24" data-aos="fade-left">
-            <SimilarityProgress score={sliderValue} />
-            <Slider
+            {<SimilarityProgress score={currSimilarity} />
+            /* <Slider
               defaultValue={[33]}
               max={100}
               step={1}
               onValueChange={(i) => setSliderValue(i)}
-            />
+            /> */}
           </div>
           <Dialog>
             <DialogTrigger className="hidden" ref={dialogRef}>

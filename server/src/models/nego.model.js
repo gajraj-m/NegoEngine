@@ -59,6 +59,14 @@ const negoSchema = new mongoose.Schema(
         },
       },
     ],
+    // max_similarity: {
+    //   max_similarity_index: {type: Number, default: 0},
+    //   nego_id: {type: String, default: ""}
+    // },
+    curr_similarity: {
+      type: Number, 
+      required: true,
+    },
   },
   { timestamps: true }
 );
