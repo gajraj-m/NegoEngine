@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Select,
   SelectContent,
@@ -39,7 +39,8 @@ const NegoForm = ({
           </TooltipProvider>
         </div>
         <Select
-          defaultValue={formData["payment_collector"]}
+          // defaultValue={defaultPaymentCollector}
+          value={formData["payment_collector"]}
           onValueChange={(selectedValue) =>
             handleSelectChange("payment_collector", selectedValue)
           }
@@ -158,7 +159,7 @@ const NegoForm = ({
           </TooltipProvider>
         </div>
         <Select
-          defaultValue={formData["settlement_basis"]}
+          value={formData["settlement_basis"]}
           onValueChange={(selectedValue) =>
             handleSelectChange("settlement_basis", selectedValue)
           }
