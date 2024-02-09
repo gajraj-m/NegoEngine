@@ -36,12 +36,16 @@ const initializeSocketServer = (server) => {
     });
 
     // nego
+    // socket.on("sendNego", ({ sender_id, receiver_id, nego }) => {
+    //   const user = getUser(receiver_id);
+    //   io.to(user?.socketId).emit("getNego", {
+    //     sender_id,
+    //     nego,
+    //   });
+    // });
     socket.on("sendNego", ({ sender_id, receiver_id, nego }) => {
       const user = getUser(receiver_id);
-      io.to(user?.socketId).emit("getNego", {
-        sender_id,
-        nego,
-      });
+      io.to(user?.socketId).emit("getNego", nego);
     });
 
     // chatting

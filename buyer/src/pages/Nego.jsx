@@ -34,6 +34,7 @@ const Nego = () => {
   const index = useRef(0);
   let dialogRef = useRef(null);
   const [formData, setFormData] = useState({});
+  const [previousFormData, setPreviousFormData] = useState({});
   const [waiting, setWaiting] = useState(false);
   const [socket, setSocket] = useState(io(SOCKET_URL));
 
@@ -110,10 +111,10 @@ const Nego = () => {
     socket?.emit("addUser", currentUser._id);
 
     // get msg
-    socket?.on("getNego", (data) => {
+    socket?.on("getNego", (nego) => {
       setWaiting(false);
-      console.log("from scoket : ", data.nego);
-      setFormData(data.nego);
+      console.log("from socket : ", nego);
+      setFormData(nego);
     });
   }, [socket]);
 
