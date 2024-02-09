@@ -1,5 +1,6 @@
 const Nego = require("../models/nego.model.js");
 const similarity = require('compute-cosine-similarity');
+const levenshtein = require('fast-levenshtein');
 
 const getNego = async (req, res, next) => {
   try {
@@ -44,13 +45,23 @@ const postNego = async (req, res) => {
     const nego2 = negos.negos[len-2]; 
     // console.log(nego1);
     // console.log(nego2);
-    const result = calculateOverallSimilarity(nego1, nego2);
-    console.log(result);
+    const result = Math.round(calculateOverallSimilarity(nego1, nego2) * 100);
+    // negos.curr_similarity = result;
+    await Nego.findOneAndUpdate(
+      { nego_id: req.params.id },
+      {
+        $set: {
+          curr_similarity : result,
+        },
+      },
+      { new: true }
+    );
+    console.log(negos);
     // Object.keys(nego1).forEach(key => {
     //   console.log(`${key}: ${typeof nego1[key]}`);
     // });
     // console.log(typeof(nego1.declared_price))
-    res.status(200).json(negos[0]);
+    res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -61,22 +72,23 @@ function calculateOverallSimilarity(order1, order2) {
     const order1Values = [
         order1.declared_price,
         order1.withholding_amount,
-        order1.settlement_window,
+        order1.settlement_window*36500,
         order1.commission,
-        order1.return_window,
-        order1.cancel_window
+        order1.return_window*36500,
+        order1.cancel_window*36500
     ];
 
     const order2Values = [
         order2.declared_price,
         order2.withholding_amount,
-        order2.settlement_window,
+        order2.settlement_window*36500,
         order2.commission,
-        order2.return_window,
-        order2.cancel_window
+        order2.return_window*36500,
+        order2.cancel_window*36500
     ];
 
     const numericalSimilarity = similarity(order1Values, order2Values);
+    // const numericalSimilarity = levenshtein.get(order1Values, order2Values);
     console.log(numericalSimilarity);
 
     const categorySimilarity = {

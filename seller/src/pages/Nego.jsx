@@ -39,6 +39,7 @@ const Nego = () => {
   const [socket, setSocket] = useState(io(SOCKET_URL));
   const [lastPrice,setLastPrice] = useState(0);
   const [secondLastPrice,setSecondLastPrice] = useState(0);    
+  const [currSimilarity, setCurrSimilarity] = useState(0)
 
   const handleClick = () => {
     setWaiting(true);
@@ -74,7 +75,7 @@ const Nego = () => {
         },
       });
 
-      const nego = await axiosInstance.post(
+      const res = await axiosInstance.post(
         CONST.uri.resources.POST_NEGO +
           `/${currentBuyer._id}_${currentUser._id}`,
         {
@@ -82,7 +83,10 @@ const Nego = () => {
           sender_id: currentUser._id,
           receiver_id: currentBuyer._id,
         }
+        
       );
+      setCurrSimilarity(res.data);
+      console.log("Similarity got" + res.data);
       //  navigate("/dashboard");
     } catch (error) {
       console.log(error);
@@ -104,7 +108,9 @@ const Nego = () => {
           setLastPrice(negos.data.negos[len - 1].declared_price);
           setSecondLastPrice(negos.data.negos[len - 2].declared_price)
         }
-
+        // console.log(negos);
+        setCurrSimilarity(negos.data.curr_similarity);
+        // console.log(curr);
       } catch (err) {
         console.log(err);
       }
@@ -136,7 +142,6 @@ const Nego = () => {
 
   return (
     <div className="pt-8 h-screen bg-slate-50">
-      {lastPrice - secondLastPrice}
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel defaultSize={70}>
           <div className="shadow-lg shadow-gray-300 w-fit mx-auto px-4 rounded-lg hover:scale-105 duration-200">
@@ -186,13 +191,13 @@ const Nego = () => {
         <ResizableHandle />
         <ResizablePanel>
           <div className="w-64 h-64 mx-auto mt-24" data-aos="fade-left">
-            <SimilarityProgress score={sliderValue} />
-            <Slider
+            {<SimilarityProgress score={currSimilarity} />
+            /* <Slider
               defaultValue={[33]}
               max={100}
               step={1}
               onValueChange={(i) => setSliderValue(i)}
-            />
+            /> */}
           </div>
           <Dialog>
             <DialogTrigger className="hidden" ref={dialogRef}>
