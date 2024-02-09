@@ -37,6 +37,8 @@ const Nego = () => {
   const [previousFormData, setPreviousFormData] = useState({});
   const [waiting, setWaiting] = useState(false);
   const [socket, setSocket] = useState(io(SOCKET_URL));
+  const [lastPrice,setLastPrice] = useState(0);
+  const [secondLastPrice,setSecondLastPrice] = useState(0);    
 
   const handleClick = () => {
     setWaiting(true);
@@ -96,7 +98,13 @@ const Nego = () => {
         );
         const len = negos.data.negos.length;
         if (len >= 1) setFormData(negos.data.negos[len - 1]);
-        // console.log(negos.data.negos[len - 1]);
+        console.log(negos.data.negos);
+
+        if(len >= 1){
+          setLastPrice(negos.data.negos[len - 1].declared_price);
+          setSecondLastPrice(negos.data.negos[len - 2].declared_price)
+        }
+
       } catch (err) {
         console.log(err);
       }
@@ -128,6 +136,7 @@ const Nego = () => {
 
   return (
     <div className="pt-8 h-screen bg-slate-50">
+      {lastPrice - secondLastPrice}
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel defaultSize={70}>
           <div className="shadow-lg shadow-gray-300 w-fit mx-auto px-4 rounded-lg hover:scale-105 duration-200">
