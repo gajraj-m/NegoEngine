@@ -37,6 +37,8 @@ const Nego = () => {
   const [previousFormData, setPreviousFormData] = useState({});
   const [waiting, setWaiting] = useState(false);
   const [socket, setSocket] = useState(io(SOCKET_URL));
+  const [lastPrice,setLastPrice] = useState(0);
+  const [secondLastPrice,setSecondLastPrice] = useState(0);  
   const [currSimilarity, setCurrSimilarity] = useState(0)
 
   const handleClick = () => {
@@ -60,7 +62,6 @@ const Nego = () => {
     e.preventDefault();
     try {
       // handleClick();
-
       setWaiting(true);
       // socket
       // send to socket first
@@ -84,6 +85,7 @@ const Nego = () => {
         }
       );
       setCurrSimilarity(res.data);
+      console.log("Similarity got" + res.data);
       //  navigate("/dashboard");
     } catch (error) {
       console.log(error);
@@ -181,8 +183,8 @@ const Nego = () => {
         <ResizableHandle />
         <ResizablePanel>
           <div className="w-64 h-64 mx-auto mt-24" data-aos="fade-left">
-            <SimilarityProgress score={currSimilarity} />
-            {/* <Slider
+            {<SimilarityProgress score={currSimilarity} />
+            /* <Slider
               defaultValue={[33]}
               max={100}
               step={1}

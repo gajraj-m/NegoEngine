@@ -83,7 +83,6 @@ const Nego = () => {
           sender_id: currentUser._id,
           receiver_id: currentBuyer._id,
         }
-        
       );
       setCurrSimilarity(res.data);
       console.log("Similarity got" + res.data);
