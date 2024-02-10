@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   currentBuyer: {},
   currentNegoObj: {},
+  waitingResponse: false,
 };
 
 const appSlice = createSlice({
@@ -15,9 +16,13 @@ const appSlice = createSlice({
     setCurrentNegoObj: (state, action) => {
       state.currentBuyer = action.payload;
     },
+    setWaitingResponse: (state, action) => {
+      state.waitingResponse = action.payload;
+    },
   },
 });
 
-export const { setCurrentBuyer, setCurrentNegoObj } = appSlice.actions;
+export const { setCurrentBuyer, setCurrentNegoObj, setWaitingResponse } =
+  appSlice.actions;
 
 export default appSlice.reducer;

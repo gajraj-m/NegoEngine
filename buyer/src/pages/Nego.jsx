@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -23,6 +23,7 @@ import { axiosInstance } from "../config/axios";
 import { CONST } from "../config";
 import { io } from "socket.io-client";
 import { SOCKET_URL } from "../api/socket";
+import { setWaitingResponse } from "../redux/slices/appSlice";
 
 bouncy.register();
 
@@ -37,9 +38,11 @@ const Nego = () => {
   const [previousFormData, setPreviousFormData] = useState({});
   const [waiting, setWaiting] = useState(false);
   const [socket, setSocket] = useState(io(SOCKET_URL));
-  const [lastPrice,setLastPrice] = useState(0);
-  const [secondLastPrice,setSecondLastPrice] = useState(0);  
-  const [currSimilarity, setCurrSimilarity] = useState(0)
+  const [lastPrice, setLastPrice] = useState(0);
+  const [secondLastPrice, setSecondLastPrice] = useState(0);
+  const [currSimilarity, setCurrSimilarity] = useState(0);
+  const dispatch = useDispatch();
+  const { waitingResponse } = useSelector((state) => state.app);
 
   const handleClick = () => {
     setWaiting(true);
@@ -63,6 +66,7 @@ const Nego = () => {
     try {
       // handleClick();
       setWaiting(true);
+      dispatch(setWaitingResponse(true));
       // socket
       // send to socket first
       socket?.emit("sendNego", {
@@ -118,6 +122,7 @@ const Nego = () => {
     // get msg
     socket?.on("getNego", (nego) => {
       setWaiting(false);
+      dispatch(setWaitingResponse(false));
       console.log("from socket : ", nego);
       setFormData(nego);
     });
@@ -143,7 +148,7 @@ const Nego = () => {
           </div>
 
           <div className="w-3/4 h-3/4 p-4 mx-auto rounded-lg shadow-lg shado-gray-300 text-sm font-medium flex items-center justify-center">
-            {waiting ? (
+            {waitingResponse ? (
               <div className="" data-aos="fade-right">
                 <l-bouncy size="150" speed="1.75" color="#00b7ea"></l-bouncy>
                 <p className="text-gray-500 mt-4">
@@ -183,13 +188,15 @@ const Nego = () => {
         <ResizableHandle />
         <ResizablePanel>
           <div className="w-64 h-64 mx-auto mt-24" data-aos="fade-left">
-            {<SimilarityProgress score={currSimilarity} />
-            /* <Slider
+            {
+              <SimilarityProgress score={currSimilarity} />
+              /* <Slider
               defaultValue={[33]}
               max={100}
               step={1}
               onValueChange={(i) => setSliderValue(i)}
-            /> */}
+            /> */
+            }
           </div>
           <Dialog>
             <DialogTrigger className="hidden" ref={dialogRef}>
