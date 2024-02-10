@@ -20,13 +20,14 @@ const NegoForm = ({
   handleSubmit,
   handleSelectChange,
   formData,
+  parameterSimilarity,
 }) => {
   // useEffect(() => {
   //   console.log(formData);
   // }, [formData]);
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full px-4">
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2">
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["payment_collector"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Who collects payment</p>
@@ -58,7 +59,7 @@ const NegoForm = ({
         </Select>
       </div>
 
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["declared_price"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Declared Price</p>
@@ -84,7 +85,8 @@ const NegoForm = ({
           value={formData["declared_price"]}
         />
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2">
+
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["withholding_amount"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Withholding Amount (% of DP)</p>
@@ -115,7 +117,8 @@ const NegoForm = ({
           <span>%</span>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
+
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["settlement_window"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Settlement Window (in days)</p>
@@ -142,7 +145,8 @@ const NegoForm = ({
           value={formData["settlement_window"]}
         />
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
+
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["settlement_basis"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Settlement Basis</p>
@@ -177,7 +181,8 @@ const NegoForm = ({
           </SelectContent>
         </Select>
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
+
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["commission"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Commission (% of DP)</p>
@@ -204,7 +209,8 @@ const NegoForm = ({
           <span>%</span>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
+
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["return_window"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Return window (in days)</p>
@@ -232,7 +238,8 @@ const NegoForm = ({
           value={formData["return_window"]}
         />
       </div>
-      <div className="flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2">
+
+      <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200  px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["cancel_window"] === 1 ? 'bg-yellow-200' : ''}`}>
         <div className="flex flex-row items-center space-x-1">
           {" "}
           <p>Cancel Window</p>
