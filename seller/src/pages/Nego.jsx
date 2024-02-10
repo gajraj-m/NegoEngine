@@ -136,7 +136,6 @@ const Nego = () => {
         //   setSecondLastPrice(negos.data.negos[len - 2].declared_price);
         // }
         // console.log(negos);
-        setCurrSimilarity(negos.data.curr_similarity);
         
         // console.log(curr);
       } catch (err) {
