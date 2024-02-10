@@ -1,6 +1,31 @@
 const Nego = require("../models/nego.model.js");
 const similarity = require('compute-cosine-similarity');
 
+
+function euclideanDistance(vector1, vector2) {
+  if (vector1.length !== vector2.length) {
+      throw new Error("Vectors must have the same length");
+  }
+
+  let sum = 0;
+  //let vec = [1, 1, 365, 1, 365, 365];
+  for (let i = 0; i < vector1.length; i++) {
+      let x = (vector1[i] - vector2[i])/(Math.max(vector1[i], vector2[i]));
+      if(i == 2 || i == 4 || i == 5)
+         sum += Math.pow(x, 2)*1.825;
+      else 
+         sum += Math.pow()
+  }
+  
+  return 1-(Math.sqrt(sum)/6)*0.7;
+}
+
+function similarityIndex(vector1, vector2) {
+  const distance = euclideanDistance(vector1, vector2);
+  return 1 - distance; 
+}
+
+
 const getNego = async (req, res, next) => {
   try {
     // Check if negotiations exist for the given nego_id
@@ -16,6 +41,7 @@ const getNego = async (req, res, next) => {
         nego_id: req.params.id,
         buyer_id: buyer_id,
         seller_id: seller_id,
+        curr_similarity: 0,
         // Add any other default properties for the negotiation object
       });
     }
@@ -99,6 +125,7 @@ function calculateOverallSimilarity(order1, order2) {
 
     // Calculate overall similarity considering weights for different attribute types
     const overallSimilarity = (0.5 * numericalSimilarity + 0.25 * paymentSimilarity + 0.25 * settlementSimilarity);
+    console.log(overallSimilarity);
     return overallSimilarity;
 }
 
