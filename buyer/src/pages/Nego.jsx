@@ -43,6 +43,22 @@ const Nego = () => {
   const [currSimilarity, setCurrSimilarity] = useState(0);
   const dispatch = useDispatch();
   const { waitingResponse } = useSelector((state) => state.app);
+  const [parameterSimilarity, setParameterSimilarity] = useState({});
+
+  function compareObjects(obj1, obj2) {
+    const keys = Object.keys(obj1);
+    const binaryArray = [];
+
+    for (const key of keys) {
+        if (obj1[key] !== obj2[key]) {
+            binaryArray[key] = 1;
+        } else {
+            binaryArray[key] = 0;
+        }
+    }
+
+    return binaryArray;
+  }
 
   const handleClick = () => {
     setWaiting(true);
@@ -104,7 +120,12 @@ const Nego = () => {
             `/${currentUser._id}_${currentSeller._id}`
         );
         const len = negos.data.negos.length;
-        if (len >= 1) setFormData(negos.data.negos[len - 1]);
+        if (len >= 1) {
+          setFormData(negos.data.negos[len - 1]);
+        }
+        if (len >= 2) {
+          setParameterSimilarity(compareObjects(negos.data.negos[len - 1], negos.data.negos[len - 2]));
+        }
         // console.log(negos.data.negos[len - 1]);
         setCurrSimilarity(negos.data.curr_similarity);
       } catch (err) {
@@ -161,6 +182,7 @@ const Nego = () => {
                 handleChange={handleChange}
                 handleSelectChange={handleSelectChange}
                 formData={formData}
+                parameterSimilarity={parameterSimilarity}
               />
             )}
           </div>
@@ -169,7 +191,7 @@ const Nego = () => {
           <div className="w-fit mx-auto mt-4 flex flex-row space-x-10">
             <button
               type="submit"
-              disabled={waiting}
+              disabled={waitingResponse}
               onClick={handleSubmit}
               className="shadow-md shadow-blue-300 bg-buttonGradient font-medium text-white px-8 py-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-40 hover:scale-105 duration-200"
             >
