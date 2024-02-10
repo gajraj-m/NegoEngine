@@ -15,16 +15,19 @@ import {
 } from "@/components/ui/tooltip";
 import { IoIosHelpCircle } from "react-icons/io";
 
+//const [prevSim, setPrevSim] = useState(null);
+// const [isSame, setIsSame] = useState(true);
+// const [refreshed, setRefreshed] = useState(false);
+
 const NegoForm = ({
   handleChange,
   handleSubmit,
   handleSelectChange,
   formData,
-  parameterSimilarity,
+  parameterSimilarity
 }) => {
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
+  
+  
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full px-4">
       <div className={`flex flex-row items-center justify-between border-[1px] hover:shadow-md duration-150 shadow-gray-200 px-2 py-1 rounded-lg mt-2 ${parameterSimilarity["payment_collector"] === 1 ? 'bg-yellow-200' : ''}`}>
@@ -268,6 +271,7 @@ const NegoForm = ({
       </div>
     </form>
   );
+  
 };
 
 export default NegoForm;

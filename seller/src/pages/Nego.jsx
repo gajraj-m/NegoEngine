@@ -44,6 +44,7 @@ const Nego = () => {
   const dispatch = useDispatch();
   const { waitingResponse } = useSelector((state) => state.app);
   const [parameterSimilarity, setParameterSimilarity] = useState({});
+  const [paramChange, setParamChange] = useState(false);
 
   function compareObjects(obj1, obj2) {
     const keys = Object.keys(obj1);
@@ -52,6 +53,7 @@ const Nego = () => {
     for (const key of keys) {
         if (obj1[key] !== obj2[key]) {
             binaryArray[key] = 1;
+            setParamChange(true);
         } else {
             binaryArray[key] = 0;
         }
@@ -123,6 +125,7 @@ const Nego = () => {
         if (len >= 1) {
           setFormData(negos.data.negos[len - 1]);
         }
+        setCurrSimilarity(negos.data.curr_similarity);
         if (len >= 2) {
           setParameterSimilarity(compareObjects(negos.data.negos[len - 1], negos.data.negos[len - 2]));
         }
@@ -133,7 +136,7 @@ const Nego = () => {
         //   setSecondLastPrice(negos.data.negos[len - 2].declared_price);
         // }
         // console.log(negos);
-        setCurrSimilarity(negos.data.curr_similarity);
+        
         // console.log(curr);
       } catch (err) {
         console.log(err);
@@ -207,7 +210,7 @@ const Nego = () => {
             <button
               onClick={() => {}}
               className={`shadow-md shadow-blue-300 ${
-                sliderValue > 75 ? "bg-buttonGradient" : "hidden"
+                currSimilarity > 75 ? "bg-buttonGradient" : "hidden"
               }  font-medium text-white px-8 py-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80 hover:scale-105 duration-200`}
             >
               <span>Finalize</span>
@@ -235,7 +238,7 @@ const Nego = () => {
               <DialogHeader>
                 <DialogTitle>Finalize The Deal?</DialogTitle>
                 <DialogDescription className="">
-                  {`We have reached a consensus on ${sliderValue} of the Terms and
+                  {`We have reached a consensus on ${currSimilarity} of the Terms and
                   Conditions. Are you ready to proceed and finalize the deal?`}
                 </DialogDescription>
               </DialogHeader>
